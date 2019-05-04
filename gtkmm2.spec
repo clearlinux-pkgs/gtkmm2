@@ -4,7 +4,7 @@
 #
 Name     : gtkmm2
 Version  : 2.24.5
-Release  : 2
+Release  : 3
 URL      : https://download.gnome.org/sources/gtkmm/2.24/gtkmm-2.24.5.tar.xz
 Source0  : https://download.gnome.org/sources/gtkmm/2.24/gtkmm-2.24.5.tar.xz
 Summary  : C++ binding for the GDK drawing kit
@@ -19,8 +19,14 @@ BuildRequires : gtk+-dev
 BuildRequires : pangomm-dev
 
 %description
-This is gtkmm, a C++ API for GTK+.
-See http://www.gtkmm.org/
+Building gtkmm-2.4 with Visual Studio .NET 2008
+* You will need Visual Studio .NET 2008 (MSVC 9.0). See the MSVC_Net2005/ folder if you want to build gtkmm with Visual Studio .NET 2005, or the MSVC_Net2010/ folder if you want to build gtkmm with Visual Studio 2010. Earlier versions of the compiler, including 6.0, 7.0 and 7.1 will not work.
+* Install the latest Win32 GTK+ Development files from ftp://ftp.gnome.org/pub/GNOME/binaries/win32/gtk+
+* Build libsigc++, glibmm, cairomm and pangomm from source.
+* Add GTK+, libsigc++, glibmm, cairomm and apngomm to the include and lib paths in Visual Studio.
+* Load the MSVC_Net2008/gtkmm.sln solution.
+* Build the entire solution.
+* Run the tests.
 
 %package data
 Summary: data components for the gtkmm2 package.
@@ -36,6 +42,7 @@ Group: Development
 Requires: gtkmm2-lib = %{version}-%{release}
 Requires: gtkmm2-data = %{version}-%{release}
 Provides: gtkmm2-devel = %{version}-%{release}
+Requires: gtkmm2 = %{version}-%{release}
 
 %description dev
 dev components for the gtkmm2 package.
@@ -75,7 +82,14 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1544010946
+export SOURCE_DATE_EPOCH=1557012616
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %configure --disable-static
 make  %{?_smp_mflags}
 
@@ -87,7 +101,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1544010946
+export SOURCE_DATE_EPOCH=1557012616
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/gtkmm2
 cp COPYING %{buildroot}/usr/share/package-licenses/gtkmm2/COPYING
