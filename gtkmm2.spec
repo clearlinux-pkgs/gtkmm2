@@ -4,7 +4,7 @@
 #
 Name     : gtkmm2
 Version  : 2.24.5
-Release  : 3
+Release  : 4
 URL      : https://download.gnome.org/sources/gtkmm/2.24/gtkmm-2.24.5.tar.xz
 Source0  : https://download.gnome.org/sources/gtkmm/2.24/gtkmm-2.24.5.tar.xz
 Summary  : C++ binding for the GDK drawing kit
